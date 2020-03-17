@@ -39,31 +39,53 @@ class Cat:
     """
 
     def __init__(self, age):
-        pass
+        self.age = input(int("Enter your cat's age."))
+        self.saturation_level = 50
+        self.average_speed = self._set_average_speed()
 
     def eat(self, product):
-        pass
+        try:
+            product = input(str("Which of these products do you want to feed your cat: fodder, apple or milk?"))
+        except(TypeError, ValueError):
+            print("You can only enter fodder, apple or milk! Please, try again!")
+        products = {'fodder': 10, 'apple': 5, 'milk': 2}
+        if product in products:
+            self._increase_saturation_level(products[product])
 
     def _reduce_saturation_level(self, value):
-        pass
+        self.saturation_level = max(self.saturation_level - value, 0)
 
     def _increase_saturation_level(self, value):
-        pass
+        self.saturation_level = max(self._increase_saturation_level + value, 100)
 
     def _set_average_speed(self):
-        pass
+        if self.age <= 7:
+            return 12
+        elif 7 < self.age <= 10:
+            return 9
+        else:
+            return 6
 
     def run(self, hours):
-        pass
+        kilometers = self.average_speed * hours
+        if kilometers <= 25:
+            self._reduce_saturation_level(2)
+        elif 25 < kilometers <= 100:
+            self._reduce_saturation_level(15)
+        elif 100 < kilometers <= 200:
+            self._reduce_saturation_level(25)
+        else:
+            self._reduce_saturation_level(50)
+            return print(f"Your cat ran {kilometers} kilometers")
 
     def get_saturation_level(self):
-        pass
+        return self.saturation_level if self.saturation_level > 0 else print("Your cat is dead :(")
 
     def get_average_speed(self):
-        pass
+        return self.average_speed
 
 
-class Cheetah:
+class Cheetah(Cat):
     """
     * Inherit from class Cat
 
@@ -77,6 +99,22 @@ class Cheetah:
       if age grosser 15(not including) return 40
 
     """
+    def eat(self, product):
+        try:
+            product = input(str("Which of these products do you want to feed your cheetah: gazzele or rabbit?"))
+        except(TypeError, ValueError):
+            print("You can only enter gazzele or rabbit! Please, try again!")
+        products = {'gazzele': 30, 'rabbit': 15}
+        if product in products:
+            self._increase_saturation_level(products[product])
+
+    def _set_average_speed(self):
+        if self.age <= 5:
+            return 90
+        elif 5 < self.age <= 15:
+            return 75
+        else:
+            return 40
 
 
 class Wall:
@@ -95,13 +133,17 @@ class Wall:
     """
 
     def __init__(self, width, height):
-        pass
+        self.width = width
+        self.height = height
 
     def wall_square(self):
-        pass
+        return self.width * self.height
 
     def number_of_rolls_of_wallpaper(self, roll_width_m, roll_length_m):
-        pass
+        count_of_lines_in_roll = int(roll_length_m / self.height)
+        count_of_lines = int(self.width / roll_width_m)
+        return count_of_lines / count_of_lines_in_roll
+
 
 
 class Roof:
@@ -115,11 +157,17 @@ class Roof:
 
     """
 
-    def __init__(self):
-        pass
+    def __init__(self, width, height, roof_type):
+        self.width = width
+        self.height = height
+        self.roof_type = roof_type
 
     def roof_square(self):
-        pass
+        roof_types_dict = {'gable': self.width * self.height * 2, 'single-pitch': self.width * self.height }
+        try:
+            return roof_types_dict[self.roof_type]
+        except KeyError:
+            raise ValueError("Sorry there are only two types of roofs")
 
 
 class Window:
