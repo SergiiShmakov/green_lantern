@@ -83,12 +83,7 @@ def multiple_ints_with_conversion(first_value: Any, second_value: Any) -> int:
             print("Not valid input data")
         >>> "Not valid input data"
     """
-    # try:
-    #     first_value = int(first_value)
-    #     second_value = int(second_value)
-    #     return first_value * second_value
-    # except (ValueError, TypeError):
-    #     print("Not valid input data")
+
     try:
         result = int(first_value) * int(second_value)
         return result
@@ -112,10 +107,7 @@ def is_word_in_text(word: str, text: str) -> bool:
         >>> False
 
     """
-    if word in text:
-        return True
-    else:
-        return False
+    return word in text
 
 
 def some_loop_exercise() -> list:
@@ -149,7 +141,7 @@ def alphabet() -> dict:
     return dict(enumerate(ascii_lowercase, start=1))
 
 
-def simple_sort(data: List[int]) -> List[list]:
+def simple_sort(data: List[int]) -> List[int]:
     """
     Sort list of ints without using built-in methods.
     Examples:
@@ -164,6 +156,3 @@ def simple_sort(data: List[int]) -> List[list]:
                 data[i], data[i + 1] = data[i + 1], data[i]
                 sort_ = True
     return data
-
-
-
