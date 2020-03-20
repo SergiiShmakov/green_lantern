@@ -45,8 +45,7 @@ class Cat:
 
     def eat(self, product):
         products = {'fodder': 10, 'apple': 5, 'milk': 2}
-        if product in products:
-            self._increase_saturation_level(products[product])
+        self._increase_saturation_level(products.get(product, 0))
 
     def _reduce_saturation_level(self, value):
         self.saturation_level = max(self.saturation_level - value, 0)
@@ -72,7 +71,7 @@ class Cat:
             self._reduce_saturation_level(25)
         else:
             self._reduce_saturation_level(50)
-            return print(f"Your cat ran {kilometers} kilometers")
+            print(f"Your cat ran {kilometers} kilometers")
 
     def get_saturation_level(self):
         return self.saturation_level if self.saturation_level > 0 else print("Your cat is dead :(")
