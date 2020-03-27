@@ -1,27 +1,30 @@
 class Obstacle:
-    def __init__(self, x_obstacle: int, y_obstacle: int, asteroid):
-        self.x = x_obstacle
-        self.y = y_obstacle
+    def __init__(self, x_obstacle, y_obstacle, asteroid):
+        self.x_obstacle = x_obstacle
+        self.y_obstacle = y_obstacle
         self.asteroid = asteroid
+        if self.x_obstacle > self.asteroid.x or self.y_obstacle > self.asteroid.y \
+                or self.x_obstacle < 0 or self.y_obstacle < 0:
+            raise ObstacleError
 
 
 class Asteroid:
-    def __init__(self, x: int, y: int):
+    def __init__(self, x, y):
         self.x = x
         self.y = y
 
 
 class Robot:
-    def __init__(self, x: int, y: int, direction: str, asteroid, obstacle):
+    def __init__(self, x, y, asteroid, direction, obstacle):
         self.x = x
         self.y = y
         self.asteroid = asteroid
         self.direction = direction
-        self.obstacle = obstacle
         self.position = x, y
+        self.obstacle = obstacle
         if self.x > self.asteroid.x or self.y > self.asteroid.y or self.x < 0 or self.y < 0:
             raise MissAsteroidError
-        if self.x == self.obstacle.x or self.y == self.obstacle.y:
+        elif self.x == self.obstacle.x_obstacle or self.obstacle.y_obstacle == self.asteroid.y:
             raise RobotMovementError
 
     def turn_left(self):
@@ -34,16 +37,21 @@ class Robot:
 
     def move_forward(self):
         moving_forward = {
-             "N": (self.x, self.y + 1),
-             "E": (self.x + 1, self.y),
-             "S": (self.x, self.y - 1),
-             "W": (self.x - 1, self.y),
+             "N": {self.position: (self.x, self.y + 1)},
+             "E": {self.position: (self.x + 1, self.y)},
+             "S": {self.position: (self.x, self.y - 1)},
+             "W": {self.position: (self.x - 1, self.y)},
          }
-        self.position = moving_forward.get(self.direction, None)
+        self.position = moving_forward.get(self.direction)
 
     def move_backward(self):
-        moving_backward = {self.position: self.x - 1 or self.y - 1}
-        self.position = moving_backward.get(self.position, None)
+        moving_backward = {
+             "N": {self.position: (self.x, self.y - 1)},
+             "E": {self.position: (self.x - 1, self.y)},
+             "S": {self.position: (self.x, self.y + 1)},
+             "W": {self.position: (self.x + 1, self.y)},
+         }
+        self.position = moving_backward.get(self.direction)
 
 
 class MissAsteroidError(Exception):
@@ -55,4 +63,8 @@ class RobotMovementError(Exception):
     def __str__(self):
         return 'There is the obstacle on your way'
 
+
+class ObstacleError(Exception):
+    def __str__(self):
+        return 'The obstacle is out of the asteroid'
 
