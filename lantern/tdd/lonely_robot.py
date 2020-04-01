@@ -20,7 +20,6 @@ class Robot:
         self.y = y
         self.asteroid = asteroid
         self.direction = direction
-        self.position = x, y
         self.obstacle = obstacle
         if self.x > self.asteroid.x or self.y > self.asteroid.y or self.x < 0 or self.y < 0:
             raise MissAsteroidError
@@ -37,21 +36,21 @@ class Robot:
 
     def move_forward(self):
         moving_forward = {
-             "N": {self.position: (self.x, self.y + 1)},
-             "E": {self.position: (self.x + 1, self.y)},
-             "S": {self.position: (self.x, self.y - 1)},
-             "W": {self.position: (self.x - 1, self.y)},
+             "N": (self.x, self.y + 1),
+             "E": (self.x + 1, self.y),
+             "S": (self.x, self.y - 1),
+             "W": (self.x - 1, self.y),
          }
-        self.position = moving_forward.get(self.direction)
+        self.x, self.y = moving_forward.get(self.direction)
 
     def move_backward(self):
         moving_backward = {
-             "N": {self.position: (self.x, self.y - 1)},
-             "E": {self.position: (self.x - 1, self.y)},
-             "S": {self.position: (self.x, self.y + 1)},
-             "W": {self.position: (self.x + 1, self.y)},
+             "N": (self.x, self.y - 1),
+             "E": (self.x - 1, self.y),
+             "S": (self.x, self.y + 1),
+             "W": (self.x + 1, self.y),
          }
-        self.position = moving_backward.get(self.direction)
+        self.x, self.y = moving_backward.get(self.direction)
 
 
 class MissAsteroidError(Exception):

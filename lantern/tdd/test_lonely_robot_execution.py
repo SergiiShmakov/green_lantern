@@ -50,7 +50,6 @@ class RobotMovement:
     def setup(self):
         self.x, self.y = 10, 15
         self.asteroid = Asteroid(self.x, self.y)
-        self.x_obstacle, self.y_obstacle = 5, 6
         self.obstacle = Obstacle(self.x_obstacle, self.y_obstacle, self.asteroid)
         self.direction = 'N'
         self.robot.x, self.robot.y = 3, 4
@@ -68,7 +67,7 @@ class RobotMovement:
     def test_turn_left(self, current_direction, expected_direction):
         robot = Robot(self.x, self.y, self.direction, self.asteroid, self.obstacle)
         robot.turn_left()
-        assert current_direction == expected_direction
+        assert robot.direction == expected_direction
 
     @pytest.mark.parametrize(
         'current_direction,expected_direction',
@@ -82,7 +81,7 @@ class RobotMovement:
     def test_turn_right(self, current_direction, expected_direction):
         robot = Robot(self.x, self.y, self.direction, self.asteroid, self.obstacle)
         robot.turn_right()
-        assert current_direction == expected_direction
+        assert robot.direction == expected_direction
 
     @pytest.mark.parametrize(
          "direction,current_position,expected_position",
@@ -96,7 +95,7 @@ class RobotMovement:
     def test_move_forward(self, direction, current_position, expected_position):
         robot = Robot(self.x, self.y, self.direction, self.asteroid)
         robot.move_forward()
-        assert current_position == expected_position
+        assert robot.x, robot.y == expected_position
 
     @pytest.mark.parametrize(
          "direction,current_position,expected_position",
@@ -110,7 +109,7 @@ class RobotMovement:
     def test_move_backward(self, direction, current_position, expected_position):
         robot = Robot(self.x, self.y, self.direction, self.asteroid)
         robot.move_backward()
-        assert current_position == expected_position
+        assert robot.x, robot.y == expected_position
 
     @pytest.mark.parametrize(
         "current_position,expected_position,obstacle_position",
