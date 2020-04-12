@@ -19,6 +19,8 @@ class Robot:
         self.x = x
         self.y = y
         self.asteroid = asteroid
+        if self.x > self.asteroid.x:
+            raise MissAsteroidError()
         self.direction = direction
         self.obstacle = obstacle
         if self.x > self.asteroid.x or self.y > self.asteroid.y or self.x < 0 or self.y < 0:
@@ -66,4 +68,3 @@ class RobotMovementError(Exception):
 class ObstacleError(Exception):
     def __str__(self):
         return 'The obstacle is out of the asteroid'
-

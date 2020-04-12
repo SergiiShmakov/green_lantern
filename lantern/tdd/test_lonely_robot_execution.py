@@ -2,6 +2,7 @@ import pytest
 from lonely_robot import Robot, Asteroid, Obstacle, MissAsteroidError, RobotMovementError, ObstacleError
 
 
+
 class TestRobotCreation:
     def test_parameters(self):
         x, y = 10, 15
@@ -122,3 +123,4 @@ class RobotMovement:
         with pytest.raises(RobotMovementError):
             obstacle = Obstacle(*obstacle_position)
             Robot(*expected_position, obstacle, 'N')
+
