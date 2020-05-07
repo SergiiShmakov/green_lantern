@@ -1,7 +1,7 @@
 from flask import Flask
 from docker.practice.app.config import Config
 from docker.practice.app.models import db, User, Good, Store
-from sqlalchemy_utils import create_database, drop_database, database_exists
+from sqlalchemy_utils import create_database, database_exists
 from docker.practice.app.populate_data import get_users, get_goods, get_stores
 
 
