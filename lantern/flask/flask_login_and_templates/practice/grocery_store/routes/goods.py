@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, Blueprint
 from flask_restful import Resource, marshal
 
 from grocery_store.models import Good
