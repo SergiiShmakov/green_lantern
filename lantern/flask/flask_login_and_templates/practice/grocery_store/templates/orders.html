@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="title">
+        List of orders
+    </h1>
+    <table class="table" align="center">
+        <tr>
+            <th>User</th>
+            <th>Good</th>
+            <th>Price</th>
+            <th>Time</th>
+        </tr>
+        {% for order in orders %}
+            {% for info in order.order_lines %}
+            <tr>
+                <td>{{ current_user.name }}</td>
+                <td>{{ info.good.name }}</td>
+                <td>{{ info.good.price }}</td>
+                <td>{{ order.created_time }}</td>
+            </tr>
+            {% endfor %}
+        {% endfor %}
+    </table>
+{% endblock %}

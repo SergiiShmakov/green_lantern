@@ -4,7 +4,6 @@ import os
 
 from grocery_store.models import User, Good, Store, Order, OrderLine
 from grocery_store.config import FIXTURES_DIR, Config
-from sqlalchemy_utils import create_database, drop_database, database_exists
 
 from random import randint, choice, sample, randrange
 
