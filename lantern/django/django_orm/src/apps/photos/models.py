@@ -2,7 +2,8 @@ from django.core.validators import MinValueValidator
 from django.db import models
 
 # Create your models here.
-from common.models import BaseDateAuditModel
+
+from src.common.models import BaseDateAuditModel
 
 
 class Photo(BaseDateAuditModel):
