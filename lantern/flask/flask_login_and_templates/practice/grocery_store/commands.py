@@ -7,6 +7,8 @@ from grocery_store.config import FIXTURES_DIR, Config
 
 from random import randint, choice, sample, randrange
 
+from random import randint, choice, sample, randrange
+
 from flask_script import Command
 
 
@@ -69,14 +71,4 @@ class PopulateOrders(Command):
             users = User.query.all()
             goods = Good.query.all()
             stores = Store.query.all()
-            for user in users:
-                number_of_orders = randint(1, 5)
-                for _ in range(number_of_orders):
-                    number_of_goods = randint(1, 10)
-                    order = Order()
-                    order_lines = [OrderLine(good=good) for good in sample(goods, number_of_goods)]
-                    order.order_lines = order_lines
-                    order.user = user
-                    order.store = choice(stores)
-                    db.session.add(order)
-            db.session.commit()
+
