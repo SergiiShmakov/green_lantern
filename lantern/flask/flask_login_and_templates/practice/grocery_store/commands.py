@@ -4,7 +4,8 @@ import os
 
 from grocery_store.models import User, Good, Store, Order, OrderLine
 from grocery_store.config import FIXTURES_DIR, Config
-from sqlalchemy_utils import create_database, drop_database, database_exists
+
+from random import randint, choice, sample, randrange
 
 from random import randint, choice, sample, randrange
 
@@ -70,11 +71,4 @@ class PopulateOrders(Command):
             users = User.query.all()
             goods = Good.query.all()
             stores = Store.query.all()
-            import pdb; pdb.set_trace()
-            pass
-            # for user in users:
-            #     number_of_orders = randint(1, 5)
-            #     for _ in range(number_of_orders):
-
-
 
